@@ -17,11 +17,12 @@ func uploadHandler(w http.ResponseWriter, r *http.Request) {
 	// Parsing the request body for a json object, schema defined in Post struct.
 	fmt.Println("Received one post request")
 
+	// Access-Control-Allow-Origin: Specify which service is accepted for CORS.
 	// Access-Control-Allow-Headers： used in response to a preflight request to indicate which HTTP headers can be used during the actual request.
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Header().Set("Access-Control-Allow-Headers", "Content-Type,Authorization")
 
-	// Early return to reject "OPTIONS" method, as both POST and OPTIONS are allowed for this API.
+	// Early return to respond to preflight request signified by "OPTIONS" method, with the headers properly set above.
 	if r.Method == "OPTIONS" {
 		return
 	}

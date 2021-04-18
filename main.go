@@ -13,7 +13,8 @@ func main() {
 	fmt.Println("started-service")
 
 	r := mux.NewRouter()
-	// I put "OPTIONS" here as an example of how to handle different HTTP methods to the same API in uploadHandler.
+
+	// "OPTIONS" is allowed for preflight request for CORS
 	r.Handle("/upload", http.HandlerFunc(uploadHandler)).Methods("POST", "OPTIONS")
 
 	log.Fatal(http.ListenAndServe(":8080", r))
