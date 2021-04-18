@@ -6,6 +6,13 @@ import (
 	"net/http"
 )
 
+// An interesting reason by w doesn't have "*", but r does:
+// https://stackoverflow.com/questions/13255907/in-go-http-handlers-why-is-the-responsewriter-a-value-but-the-request-a-pointer
+// The http.ResponseWriter is an interface, and the existing types implementing this interface are pointers.
+// That means there's no need to use a pointer to this interface, as it's already "backed" by a pointer.
+// http.Request is not an interface, it's just a struct.
+// It is not supposed to be mutable, but it is large so copying it will reduce performance.
+// So it is passed in as a pointer.
 func uploadHandler(w http.ResponseWriter, r *http.Request) {
 	// Parsing the request body for a json object, schema defined in Post struct.
 	fmt.Println("Received one post request")
