@@ -1,5 +1,15 @@
 package main
 
+import (
+	"reflect"
+
+	"github.com/olivere/elastic/v7"
+)
+
+const (
+	POST_INDEX = "post"
+)
+
 type Post struct {
 	// More info at https://golang.org/pkg/encoding/json/
 	// Taking Id as an example, field appears in JSON as key "id".
@@ -11,4 +21,37 @@ type Post struct {
 	Message string `json:"message"`
 	Url     string `json:"url"`
 	Type    string `json:"type"`
+}
+
+func searchPostsByUser(user string) ([]Post, error) {
+	query := elastic.NewTermQuery("user", user)
+	searchResult, err := readFromES(query, POST_INDEX)
+	if err != nil {
+		return nil, err
+	}
+	return getPostFromSearchResult(searchResult), nil
+}
+
+func searchPostsByKeywords(keywords string) ([]Post, error) {
+	query := elastic.NewMatchQuery("message", keywords)
+	query.Operator("AND")
+	if keywords == "" {
+		query.ZeroTermsQuery("all")
+	}
+	searchResult, err := readFromES(query, POST_INDEX)
+	if err != nil {
+		return nil, err
+	}
+	return getPostFromSearchResult(searchResult), nil
+}
+
+func getPostFromSearchResult(searchResult *elastic.SearchResult) []Post {
+	var ptype Post
+	var posts []Post
+
+	for _, item := range searchResult.Each(reflect.TypeOf(ptype)) {
+		p := item.(Post)
+		posts = append(posts, p)
+	}
+	return posts
 }
