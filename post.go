@@ -49,6 +49,7 @@ func getPostFromSearchResult(searchResult *elastic.SearchResult) []Post {
 	var ptype Post
 	var posts []Post
 
+	// more examples can be found here: https://github.com/olivere/elastic/blob/release-branch.v7/example_test.go
 	for _, item := range searchResult.Each(reflect.TypeOf(ptype)) {
 		p := item.(Post)
 		posts = append(posts, p)
