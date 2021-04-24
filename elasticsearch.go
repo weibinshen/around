@@ -38,10 +38,10 @@ func saveToES(i interface{}, index string, id string) error {
 		return err
 	}
 
-	_, err = client.Index().
-		Index(index).
-		Id(id).
-		BodyJson(i).
-		Do(context.Background())
+	_, err = client.Index(). // here the Index() call is actually specifying that we want an "insert" operation
+					Index(index).
+					Id(id).
+					BodyJson(i).
+					Do(context.Background())
 	return err
 }

@@ -9,6 +9,10 @@ import (
 )
 
 const (
+	// Despite the fact that there is no password setup for GCS
+	// As far as the Bucket is not public, only the owner can write to this bucket.
+	// If I write to another person's bucket, I can get this error:
+	// Failed to save post to GCS or Elasticsearch googleapi: Error 403: 494124340282-compute@developer.gserviceaccount.com does not have storage.objects.create access to sean-bucket/0137eaa8-cfdc-4451-b0ed-07d92a26e9fa., forbidden
 	BUCKET_NAME = "weibin-around-bucket"
 )
 
