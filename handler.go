@@ -47,7 +47,7 @@ func uploadHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	p := Post{
-		Id:      uuid.New(),
+		Id:      uuid.New().String(), // Note: Need to convert UUID to String.
 		User:    r.FormValue("user"),
 		Message: r.FormValue("message"),
 	}
