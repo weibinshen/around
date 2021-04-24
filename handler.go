@@ -4,6 +4,23 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"path/filepath"
+
+	"github.com/google/uuid"
+)
+
+var (
+	mediaTypes = map[string]string{
+		".jpeg": "image",
+		".jpg":  "image",
+		".gif":  "image",
+		".png":  "image",
+		".mov":  "video",
+		".mp4":  "video",
+		".avi":  "video",
+		".flv":  "video",
+		".wmv":  "video",
+	}
 )
 
 // An interesting reason by w doesn't have "*", but r does:
@@ -17,7 +34,7 @@ import (
 // So it is passed in as a pointer.
 func uploadHandler(w http.ResponseWriter, r *http.Request) {
 	// Parsing the request body for a json object, schema defined in Post struct.
-	fmt.Println("Received one post request")
+	fmt.Println("Received one upload request")
 
 	// Access-Control-Allow-Origin: Specify which service is accepted for CORS.
 	// Access-Control-Allow-Headers： used in response to a preflight request to indicate which HTTP headers can be used during the actual request.
@@ -29,13 +46,34 @@ func uploadHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	decoder := json.NewDecoder(r.Body)
-	var p Post
-	if err := decoder.Decode(&p); err != nil {
-		panic(err)
+	p := Post{
+		Id:      uuid.New(),
+		User:    r.FormValue("user"),
+		Message: r.FormValue("message"),
 	}
 
-	fmt.Fprintf(w, "Post received: %s\n", p.Message)
+	file, header, err := r.FormFile("media_file")
+	if err != nil {
+		http.Error(w, "Media file is not available", http.StatusBadRequest)
+		fmt.Printf("Media file is not available %v\n", err)
+		return
+	}
+
+	suffix := filepath.Ext(header.Filename)
+	if t, ok := mediaTypes[suffix]; ok {
+		p.Type = t
+	} else {
+		p.Type = "unknown"
+	}
+
+	err = savePost(&p, file)
+	if err != nil {
+		http.Error(w, "Failed to save post to GCS or Elasticsearch", http.StatusInternalServerError)
+		fmt.Printf("Failed to save post to GCS or Elasticsearch %v\n", err)
+		return
+	}
+
+	fmt.Println("Post is saved successfully.")
 }
 
 func searchHandler(w http.ResponseWriter, r *http.Request) {

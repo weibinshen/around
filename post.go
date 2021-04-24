@@ -1,6 +1,7 @@
 package main
 
 import (
+	"mime/multipart"
 	"reflect"
 
 	"github.com/olivere/elastic/v7"
@@ -55,4 +56,15 @@ func getPostFromSearchResult(searchResult *elastic.SearchResult) []Post {
 		posts = append(posts, p)
 	}
 	return posts
+}
+
+func savePost(post *Post, file multipart.File) error {
+	medialink, err := saveToGCS(file, post.Id)
+	if err != nil {
+		return err
+	}
+	post.Url = medialink
+
+	// TODO: Here we may want to improve with a roll back: if the saveToES failed, we want to delete the media saved to GCS above.
+	return saveToES(post, POST_INDEX, post.Id)
 }
