@@ -1,0 +1,98 @@
+{
+	"info": {
+		"_postman_id": "a52d2c83-e370-4e55-a06d-25a0131fdd06",
+		"name": "Around Backend 03. GCS",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Around Backend Upload",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "user",
+							"value": "vincent",
+							"type": "text"
+						},
+						{
+							"key": "message",
+							"value": "this is a post from vincent",
+							"type": "text"
+						},
+						{
+							"key": "media_file",
+							"type": "file",
+							"src": "/C:/Users/sean_/Downloads/vincent.jpeg"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://YOUR_GCE_EXTERNAL_IP_ADDRESS:8080/upload",
+					"protocol": "http",
+					"host": [
+						"YOUR_GCE_EXTERNAL_IP_ADDRESS"
+					],
+					"port": "8080",
+					"path": [
+						"upload"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Around Backend Search By User",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://YOUR_GCE_EXTERNAL_IP_ADDRESS:8080/search?user=vincent",
+					"protocol": "http",
+					"host": [
+						"YOUR_GCE_EXTERNAL_IP_ADDRESS"
+					],
+					"port": "8080",
+					"path": [
+						"search"
+					],
+					"query": [
+						{
+							"key": "user",
+							"value": "vincent"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Around Backend Search By Keywords",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://YOUR_GCE_EXTERNAL_IP_ADDRESS:8080/search?keywords=this+post",
+					"protocol": "http",
+					"host": [
+						"YOUR_GCE_EXTERNAL_IP_ADDRESS"
+					],
+					"port": "8080",
+					"path": [
+						"search"
+					],
+					"query": [
+						{
+							"key": "keywords",
+							"value": "this+post"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

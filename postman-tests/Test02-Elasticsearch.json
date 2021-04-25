@@ -1,0 +1,384 @@
+{
+	"info": {
+		"_postman_id": "0739644d-41c8-4cca-add5-25bc5e70cd22",
+		"name": "Around Backend 02. Elasticsearch",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Elasticsearch Home Page",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "YOUR_ELASTICSEARCH_USER ",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "YOUR_ELASTICSEARCH_PASSWORD",
+							"type": "string"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://YOUR_GCE_EXTERNAL_IP_ADDRESS:9200",
+					"protocol": "http",
+					"host": [
+						"YOUR_GCE_EXTERNAL_IP_ADDRESS"
+					],
+					"port": "9200"
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Elasticsearch Update Password",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "YOUR_ELASTICSEARCH_USER ",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "YOUR_ELASTICSEARCH_PASSWORD",
+							"type": "string"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"password\" : \"YOUR_NEW_PASSWORD\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://YOUR_GCE_EXTERNAL_IP_ADDRESS:9200/_security/user/elastic/_password",
+					"protocol": "http",
+					"host": [
+						"YOUR_GCE_EXTERNAL_IP_ADDRESS"
+					],
+					"port": "9200",
+					"path": [
+						"_security",
+						"user",
+						"elastic",
+						"_password"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Elasticsearch Home Post Index",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "YOUR_ELASTICSEARCH_USER ",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "YOUR_ELASTICSEARCH_PASSWORD",
+							"type": "string"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://YOUR_GCE_EXTERNAL_IP_ADDRESS:9200/post?pretty",
+					"protocol": "http",
+					"host": [
+						"YOUR_GCE_EXTERNAL_IP_ADDRESS"
+					],
+					"port": "9200",
+					"path": [
+						"post"
+					],
+					"query": [
+						{
+							"key": "pretty",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Elasticsearch Home User Index",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "YOUR_ELASTICSEARCH_USER ",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "YOUR_ELASTICSEARCH_PASSWORD",
+							"type": "string"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://YOUR_GCE_EXTERNAL_IP_ADDRESS:9200/user?pretty",
+					"protocol": "http",
+					"host": [
+						"YOUR_GCE_EXTERNAL_IP_ADDRESS"
+					],
+					"port": "9200",
+					"path": [
+						"user"
+					],
+					"query": [
+						{
+							"key": "pretty",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Elasticsearch Add Post Test 1",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "YOUR_ELASTICSEARCH_USER ",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "YOUR_ELASTICSEARCH_PASSWORD",
+							"type": "string"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": \"1\",\r\n  \"user\": \"sun\",\r\n  \"message\": \"This is a post by sun\",\r\n  \"url\": \"https://www.around-demo.com\",\r\n  \"type\": \"image\"\r\n}\r\n"
+				},
+				"url": {
+					"raw": "http://YOUR_GCE_EXTERNAL_IP_ADDRESS:9200/post/_doc/1",
+					"protocol": "http",
+					"host": [
+						"YOUR_GCE_EXTERNAL_IP_ADDRESS"
+					],
+					"port": "9200",
+					"path": [
+						"post",
+						"_doc",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Elasticsearch Add Post Test 2",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "YOUR_ELASTICSEARCH_USER ",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "YOUR_ELASTICSEARCH_PASSWORD",
+							"type": "string"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": \"2\",\r\n  \"user\": \"zhao\",\r\n  \"message\": \"This is a post by zhao\",\r\n  \"url\": \"https://www.around-demo.com\",\r\n  \"type\": \"image\"\r\n}\r\n"
+				},
+				"url": {
+					"raw": "http://YOUR_GCE_EXTERNAL_IP_ADDRESS:9200/post/_doc/2",
+					"protocol": "http",
+					"host": [
+						"YOUR_GCE_EXTERNAL_IP_ADDRESS"
+					],
+					"port": "9200",
+					"path": [
+						"post",
+						"_doc",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Elasticsearch Search Posts",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "YOUR_ELASTICSEARCH_USER ",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "YOUR_ELASTICSEARCH_PASSWORD",
+							"type": "string"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://YOUR_GCE_EXTERNAL_IP_ADDRESS:9200/post/_search?pretty",
+					"protocol": "http",
+					"host": [
+						"YOUR_GCE_EXTERNAL_IP_ADDRESS"
+					],
+					"port": "9200",
+					"path": [
+						"post",
+						"_search"
+					],
+					"query": [
+						{
+							"key": "pretty",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Around Backend Search By User",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://YOUR_GCE_EXTERNAL_IP_ADDRESS:8080/search?user=sun",
+					"protocol": "http",
+					"host": [
+						"YOUR_GCE_EXTERNAL_IP_ADDRESS"
+					],
+					"port": "8080",
+					"path": [
+						"search"
+					],
+					"query": [
+						{
+							"key": "user",
+							"value": "sun"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Around Backend Search By Keywords",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://YOUR_GCE_EXTERNAL_IP_ADDRESS:8080/search?keywords=this+post",
+					"protocol": "http",
+					"host": [
+						"YOUR_GCE_EXTERNAL_IP_ADDRESS"
+					],
+					"port": "8080",
+					"path": [
+						"search"
+					],
+					"query": [
+						{
+							"key": "keywords",
+							"value": "this+post"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

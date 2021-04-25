@@ -1,0 +1,217 @@
+{
+	"info": {
+		"_postman_id": "c98d600f-209a-487f-afd7-96e65df9f620",
+		"name": "Around Backend 04. Authentication",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Around Backend Signup",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"username\":\"vincent\",\r\n\t\"password\":\"ABCD\",\r\n\t\"age\":35,\r\n\t\"gender\":\"male\"\r\n}\r\n"
+				},
+				"url": {
+					"raw": "http://YOUR_GCE_EXTERNAL_IP_ADDRESS:8080/signup",
+					"protocol": "http",
+					"host": [
+						"YOUR_GCE_EXTERNAL_IP_ADDRESS"
+					],
+					"port": "8080",
+					"path": [
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Around Backend Signin",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"username\":\"vincent\",\r\n\t\"password\":\"ABCD\"\r\n}\r\n"
+				},
+				"url": {
+					"raw": "http://YOUR_GCE_EXTERNAL_IP_ADDRESS:8080/signin",
+					"protocol": "http",
+					"host": [
+						"YOUR_GCE_EXTERNAL_IP_ADDRESS"
+					],
+					"port": "8080",
+					"path": [
+						"signin"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Around Backend Search By User with Token",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "YOUR_TOKEN",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Bearer YOUR_TOKEN"
+					}
+				],
+				"url": {
+					"raw": "http://YOUR_GCE_EXTERNAL_IP_ADDRESS:8080/search?user=vincent",
+					"protocol": "http",
+					"host": [
+						"YOUR_GCE_EXTERNAL_IP_ADDRESS"
+					],
+					"port": "8080",
+					"path": [
+						"search"
+					],
+					"query": [
+						{
+							"key": "user",
+							"value": "vincent"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Around Backend Search By Keywords with Token",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "YOUR_TOKEN",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Bearer YOUR_TOKEN"
+					}
+				],
+				"url": {
+					"raw": "http://YOUR_GCE_EXTERNAL_IP_ADDRESS:8080/search?keywords=this+post",
+					"protocol": "http",
+					"host": [
+						"YOUR_GCE_EXTERNAL_IP_ADDRESS"
+					],
+					"port": "8080",
+					"path": [
+						"search"
+					],
+					"query": [
+						{
+							"key": "keywords",
+							"value": "this+post"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Around Backend Upload with Token",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "YOUR_TOKEN",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Bearer YOUR_TOKEN"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "message",
+							"value": "this is a post from vincent",
+							"type": "text"
+						},
+						{
+							"key": "media_file",
+							"type": "file",
+							"src": "/C:/Users/sean_/Downloads/vincent.jpeg"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://YOUR_GCE_EXTERNAL_IP_ADDRESS:8080/upload",
+					"protocol": "http",
+					"host": [
+						"YOUR_GCE_EXTERNAL_IP_ADDRESS"
+					],
+					"port": "8080",
+					"path": [
+						"upload"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Around Backend Delete with Token",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "YOUR_TOKEN",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://YOUR_GCE_EXTERNAL_IP_ADDRESS:8080/post/YOUR_POST_ID",
+					"protocol": "http",
+					"host": [
+						"YOUR_GCE_EXTERNAL_IP_ADDRESS"
+					],
+					"port": "8080",
+					"path": [
+						"post",
+						"YOUR_POST_ID"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
