@@ -60,5 +60,7 @@ func deleteFromES(query elastic.Query, index string) error {
 		Pretty(true).
 		Do(context.Background())
 
+	// TODO: Tomestone the file in GCS.
+
 	return err
 }
