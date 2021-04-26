@@ -1,0 +1,9 @@
+runtime: custom
+env: flex
+# service: around # commenting out this because I got an error "The first service (module) you upload to a new application must be the 'default' service (module). "
+network:
+  name: default
+  subnetwork_name: default
+automatic_scaling:
+  min_num_instances: 1
+  max_num_instances: 2
